@@ -5,6 +5,7 @@ from app.endpoint.sandbox01.spec.hello import HelloRequest
 
 router = APIRouter(prefix="/sandbox01")
 
+# QueryStringをクラスで受け取る
 
 @router.get("/hello")
 async def hello(req: Annotated[HelloRequest, Query()]):

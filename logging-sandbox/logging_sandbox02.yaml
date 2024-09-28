@@ -1,0 +1,47 @@
+version: 1
+# デフォルトはTrue 既存のログを無効化するかどうか
+disable_existing_loggers: false
+
+# フォーマッター群の定義
+# https://docs.python.org/ja/3/library/logging.html#logrecord-attributes
+formatters:
+  # simpleという名前のフォーマッター
+  simple:
+    format: "%(asctime)s - [%(levelname)s] [%(name)s] - %(message)s"
+
+# ハンドラー群の定義
+# https://docs.python.org/ja/3/howto/logging.html#useful-handlers
+handlers:
+  # consoleという名前のハンドラー定義
+  console:
+    class: logging.StreamHandler
+    # stream: ext://sys.stdout
+    formatter: simple
+  # fileという名前のハンドラー定義
+  file:
+    class: logging.FileHandler
+    formatter: simple
+    filename: "./logs/sandbox02.log"
+    encoding: utf-8
+  # time_fileという名前のハンドラー定義
+  time_file:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: simple
+    filename: "./logs/sandbox02_t.log"
+    encoding: utf-8
+    backupCount: 10
+    # when: 'S'
+    when: 'midnight'
+
+# ロガー群の定義
+loggers:
+  # ルートロガー
+  root:
+    level: DEBUG
+    handlers: [console, file, time_file]
+  
+  # 特定の階層に対する設定
+  app.sandbox02.module01:
+    propagate: false
+    level: INFO
+    handlers: [console, file, time_file]

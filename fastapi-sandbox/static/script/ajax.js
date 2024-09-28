@@ -3,7 +3,7 @@ class AjaxClient {
     const query = new URLSearchParams(params ?? {});
     
     const headers = new Headers();
-    headers.appped("X-Requested-With", "XMLHttpRequest");
+    headers.append("X-Requested-With", "XMLHttpRequest");
     const resp = await fetch(`${url}?${query.toString()}`, {
       method: "GET",
       headers,
